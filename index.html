@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="./estilos.css" />
+  </head>
+  <body>
+    <h1 class="titulo">Juego Gato</h1>
+    <section class="container">
+      <div class="box" style="color: white"></div>
+      <div id="boxA2" onclick="arriba()" class="box" style="color: white"></div>
+      <div class="box" style="color: white"></div>
+
+      <div onclick="medio()" class="box" style="color: white"></div>
+      <div id="boxM2" onclick="medio()" class="box" style="color: white"></div>
+      <div onclick="medio()" class="box" style="color: white"></div>
+
+      <div class="box" style="color: white"></div>
+      <div id="boxB2" onclick="abajo()" class="box" style="color: white"></div>
+      <div class="box" style="color: white"></div>
+    </section>
+    <BUtton class="boton" style="color: white">Reiniciar</BUtton>
+
+    <script src="./main.js"></script>
+  </body>
 </html>
