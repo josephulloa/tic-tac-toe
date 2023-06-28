@@ -1,68 +1,96 @@
-let jugador1 = true;
-let caja = document.getElementsByClassName("box");
+let turno = "X";
+let cajas = document.getElementsByClassName("box");
+const reiniciarBtn = document.getElementById("reiniciar");
 
-let aleatorio = Math.floor(Math.random() * 9);
-
-for (let i = 0; i < caja.length; i++) {
-  caja[i].addEventListener("click", userMove);
+//the event of click
+for (let i = 0; i < cajas.length; i++) {
+  cajas[i].addEventListener("click", userMove);
 }
 
+// function to mark the square and change the turn
 function userMove(e) {
-  let cajaValue = e.target.innerHTML;
-  if (!cajaValue.length) {
-    e.target.innerHTML = jugador1 = "X";
-    //  'O';jugador1 =!jugador1;
+  let cajasValue = e.target.innerHTML;
+  if (!cajasValue.length) {
+    e.target.innerHTML = turno;
+
+    document.getElementById("ganador").innerHTML = "Turno: " + turno;
+
+    let final = validarGane();
+    if (!final) {
+      movimientosValidos();
+    }
+
+    e.target.removeEventListener("click", userMove);
+  }
+}
+
+function movimientosValidos() {
+  let lista = [];
+  for (let i = 0; i < cajas.length; i++) {
+    lista[i] = cajas[i].textContent;
   }
 
-  validar(caja);
+  const camposV = Array.from(cajas).filter((caja) => caja.textContent === "");
+  console.log(camposV);
+
+  const aleatorioindex = Math.floor(Math.random() * camposV.length);
+
+  const seleccionC = camposV[aleatorioindex];
+
+  console.log(seleccionC);
+
+  seleccionC.innerHTML = "O";
+  validarGane();
 }
 
-
-function validar(caja) {
-  for (let i = 0; i < 9; i++) {
-    let valor = caja[i].textContent;
-    if (valor == "") {
-      caja[aleatorio].innerHTML = "O";
+//check if there is a winner
+const validarGane = () => {
+  let cajas = document.getElementsByClassName("box");
+  let final = false;
+  //combinations to win
+  let ganar = [
+    [0, 1, 2],
+    [0, 3, 6],
+    [0, 4, 8],
+    [2, 5, 8],
+    [2, 4, 6],
+    [6, 7, 8],
+    [1, 4, 7],
+    [3, 4, 5],
+  ];
+  //winner condisions
+  for (let i = 0; i < ganar.length; i++) {
+    let a = ganar[i][0];
+    let b = ganar[i][1];
+    let c = ganar[i][2];
+    if (
+      cajas[a].innerHTML == cajas[b].innerHTML &&
+      cajas[a].innerHTML == cajas[c].innerHTML &&
+      cajas[a].innerHTML != ""
+    ) {
+      // declares a winner
+      document.getElementById("ganador").innerHTML = "Ganador: " + turno;
+      cajas[a].style.backgroundColor = "green";
+      cajas[b].style.backgroundColor = "green";
+      cajas[c].style.backgroundColor = "green";
+      final = true;
+      for (let i = 0; i < cajas.length; i++) {
+        cajas[i].removeEventListener("click", userMove);
+      }
     }
   }
-}
+  return final;
+};
 
-// const computadoraMove= {
-//   if (valor="") {
-//   do{ elegir= Math.floor(Math.random() * 9);
-//   } while ([elegir])!="" {
-    
-//   }
-//  }
-  
-  
- 
-}
+//restart the game
+const reiniciar = () => {
+  turno = "X";
+  for (let i = 0; i < cajas.length; i++) {
+    cajas[i].innerHTML = "";
+    cajas[i].addEventListener("click", userMove);
+    cajas[i].style.backgroundColor = "";
+  }
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function validar() {
-//   let validar = ingresar.value;
-//   if (validar.length == 0) {
-
-//   }
-
-// }
-
-// function computadora(jugador1= !jugador1) {
-
-//   setTimeout.aleatorio(computadora, 1500);
-// }
+//restart button
+reiniciarBtn.addEventListener("click", reiniciar);
