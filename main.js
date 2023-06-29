@@ -6,40 +6,46 @@ const reiniciarBtn = document.getElementById("reiniciar");
 for (let i = 0; i < cajas.length; i++) {
   cajas[i].addEventListener("click", userMove);
 }
-
 // function to mark the square and change the turn
 function userMove(e) {
-  let cajasValue = e.target.innerHTML;
-  if (!cajasValue.length) {
-    e.target.innerHTML = turno;
-
-    document.getElementById("ganador").innerHTML = "Turno: " + turno;
-
+  if (!e.target.textContent) {
+    e.target.textContent = turno;
     let final = validarGane();
     if (!final) {
-      movimientosValidos();
+      turno = turno === "X" ? "O" : "X";
+      //show the turn
+      document.getElementById("ganador").innerHTML = "Turno: " + turno;
+      for (let i = 0; i < cajas.length; i++) {
+        cajas[i].removeEventListener("click", userMove);
+      }
+      setTimeout(() => {
+        pcMove();
+        for (let i = 0; i < cajas.length; i++) {
+          cajas[i].addEventListener("click", userMove);
+        }
+      }, 1500);
     }
 
     e.target.removeEventListener("click", userMove);
   }
 }
 
-function movimientosValidos() {
+function pcMove() {
   let lista = [];
   for (let i = 0; i < cajas.length; i++) {
     lista[i] = cajas[i].textContent;
   }
-
   const camposV = Array.from(cajas).filter((caja) => caja.textContent === "");
-  console.log(camposV);
-
+  
   const aleatorioindex = Math.floor(Math.random() * camposV.length);
-
   const seleccionC = camposV[aleatorioindex];
+  seleccionC.innerHTML = turno;
+  let final = validarGane();
+  if (!final) {
+    turno = turno === "O" ? "X" : "O";
+    document.getElementById("ganador").innerHTML = "Turno: " + turno;
+  }
 
-  console.log(seleccionC);
-
-  seleccionC.innerHTML = "O";
   validarGane();
 }
 
@@ -69,6 +75,7 @@ const validarGane = () => {
       cajas[a].innerHTML != ""
     ) {
       // declares a winner
+      debugger
       document.getElementById("ganador").innerHTML = "Ganador: " + turno;
       cajas[a].style.backgroundColor = "green";
       cajas[b].style.backgroundColor = "green";
