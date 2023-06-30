@@ -1,6 +1,9 @@
 let turno = "X";
 let cajas = document.getElementsByClassName("box");
 const reiniciarBtn = document.getElementById("reiniciar");
+let cCompu=document.getElementById("pCompu")
+let pJuga=document.getElementById("pJuga")
+
 
 //the event of click
 for (let i = 0; i < cajas.length; i++) {
@@ -29,7 +32,7 @@ function userMove(e) {
     e.target.removeEventListener("click", userMove);
   }
 }
-
+//pc playing
 function pcMove() {
   let lista = [];
   for (let i = 0; i < cajas.length; i++) {
@@ -43,10 +46,10 @@ function pcMove() {
   let final = validarGane();
   if (!final) {
     turno = turno === "O" ? "X" : "O";
-    document.getElementById("ganador").innerHTML = "Turno: " + turno;
+     document.getElementById("ganador").innerHTML = "Turno: " + turno; 
   }
 
-  validarGane();
+
 }
 
 //check if there is a winner
@@ -75,12 +78,20 @@ const validarGane = () => {
       cajas[a].innerHTML != ""
     ) {
       // declares a winner
-      debugger
       document.getElementById("ganador").innerHTML = "Ganador: " + turno;
       cajas[a].style.backgroundColor = "green";
       cajas[b].style.backgroundColor = "green";
       cajas[c].style.backgroundColor = "green";
       final = true;
+    
+      if (turno=="X") {
+        let pJuga = document.getElementById("pJuga")
+        pJuga.textContent=Number(pJuga.textContent)+1
+       }else{
+        let pCompu = document.getElementById("pCompu")
+        pCompu.textContent=Number(pCompu.textContent)+1
+
+       }
       for (let i = 0; i < cajas.length; i++) {
         cajas[i].removeEventListener("click", userMove);
       }
@@ -88,8 +99,8 @@ const validarGane = () => {
   }
   return final;
 };
-
-//restart the game
+ 
+ 
 const reiniciar = () => {
   turno = "X";
   for (let i = 0; i < cajas.length; i++) {

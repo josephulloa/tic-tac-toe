@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./estilos.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+
     <div class="wrapper">
       <div>
         <h1 class="titulo">Juego Gato</h1>
@@ -22,18 +29,23 @@
         <div id="8" class="box" style="color: white"></div>
         <div id="9" class="box" style="color: white"></div>
       </section>
-
-      <div><h1 id="ganador" class="titulo">Turno:</h1></div>
+      <br />
+      <div>
+        <h1 id="ganador" class="titulo">Turno:</h1>
+        <br />
+        <h2 class="Computadora">Computadora: <span id="pCompu">0</span></h2>
+        <br />
+        <h2 class="Jugador">Jugador: <span id="pJuga">0</span></h2>
+      </div>
 
       <button id="reiniciar" class="boton" style="color: white">
         Reiniciar
       </button>
     </div>
 
-    <audio controls autoplay class="audio">
-      <source src="./audio/8-bit-Музыка-из-тетриса-www.mp3" type="audio/mp3" />
+    <audio controls class="container">
+      <source src="./audio/8-bit-tetris.mp3" type="audio/mp3" />
     </audio>
-
     <script src="./main.js"></script>
   </body>
 </html>
